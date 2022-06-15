@@ -77,7 +77,7 @@ def create_msg(fields):
     return msg
 def get_ticket(num): 
     #TODO -- Connect to the API 
-    url = "https://humtech.atlassian.net/rest/api/3/issue/HUM-{}".format(num)
+    url = config.api_url+"HUM-{}".format(num)
     #print(url)
     response = requests.request(
             "GET", 
