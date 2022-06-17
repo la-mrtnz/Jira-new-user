@@ -41,7 +41,7 @@ def create_msg(fields):
     list_name.reverse() 
     dname = ", ".join(list_name)
     l_name = list_name[0]
-    f_name = list_name[1]
+    f_name = list_name[-1]
 
     body = """
             Hello EM, 
@@ -56,7 +56,7 @@ def create_msg(fields):
             Display Name: {dname}
             Desired E-Mail: {email}
             UCLA Logon ID: {ucla}
-            UID: 
+            UID: {uid}
             Affiliation: {affiliation}
             Account Type: O365
 
@@ -64,8 +64,8 @@ def create_msg(fields):
             Ex2k3 HumAll
 
 
-            Note: {note}
-            """.format(name = fields["full_name"], dept = fields["department"], lname = l_name, fname = f_name, dname = dname, email = fields["desired_email"], ucla = fields["ucla_logon"], note = fields["note"], affiliation = fields["affiliation"])
+            Note: 
+            """.format(name = fields["full_name"], dept = fields["department"], lname = l_name, fname = f_name, dname = dname, email = fields["desired_email"], ucla = fields["ucla_logon"], affiliation = fields["affiliation"], uid = fields["uid"])
 
     subject = "Humnet Account Request for {} - {}".format(fields['full_name'], fields['department'])
 
@@ -96,7 +96,8 @@ def get_ticket(num):
             "ucla_logon": issue_fields["customfield_10149"],
             "affiliation": issue_fields["customfield_10163"]["value"],
             "full_name": issue_fields["customfield_10164"],
-            "note": issue_fields["description"]["content"][0]["content"][0]["text"]
+            "uid": issue_fields["customfield_10252"]
+            #"note": issue_fields["description"]["content"][0]["content"][0]["text"]
         }
     return msg_fields
 
